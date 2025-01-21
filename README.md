@@ -17,9 +17,6 @@ El estudio se realiza configurando el **Microblaze** con tres presets diferentes
 
 ## Instalación
 
-### 1. Clonación del repositorio
-
 ```bash
 git clone https://github.com/Enrique-AZC/Introduccion-y-estudio-de-Microblaze
-cd proyecto-microblaze
-
+cd Introduccion-y-estudio-de-Microblaze
