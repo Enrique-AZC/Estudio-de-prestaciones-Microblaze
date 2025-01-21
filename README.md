@@ -10,6 +10,9 @@ Este proyecto tiene como objetivo estudiar las prestaciones de un **Microblaze**
 
 El estudio se realiza configurando el **Microblaze** con tres presets diferentes: **área**, **rendimiento** y **frecuencia**, cada uno enfocado en optimizar una de las características mencionadas.
 
+Para el estudio realizado en Vitis, utilizar el proyecto adjunto para ello. Se ha utilizado el depurador junto con el módulo MDM (instanciado en Vivado) para determinar los contenidos de las variables
+internas del temporizador
+
 ## Requisitos
 
 - **Vivado**: Para sintetizar el diseño y obtener las métricas de **frecuencia máxima**, **área** y **consumo energético**.
