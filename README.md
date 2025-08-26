@@ -109,4 +109,41 @@ Validation consists of both **functional verification** (simulation) and **hardw
 
 ---
 
-## Repository Structure
+
+---
+
+## Requirements
+- **Hardware:**  
+  - FPGA development board (e.g., Digilent Arty A7, Nexys A7, or ZedBoard).  
+  - JTAG cable for programming and debugging.  
+
+- **Software:**  
+  - Xilinx Vivado Design Suite (2019.2+).  
+  - Xilinx SDK or Vitis IDE.  
+  - MicroBlaze GNU Compiler Toolchain (`mb-gcc`).  
+
+---
+
+## Future Extensions
+- Implement **cache-enabled MicroBlaze** to evaluate performance improvements.  
+- Add **Ethernet MAC** for networking support.  
+- Run **FreeRTOS with multiple tasks** to test multitasking.  
+- Integrate **AXI DMA** for high-speed data transfer between CPU and accelerators.  
+- Explore **hardware/software partitioning** strategies for compute-intensive algorithms.  
+
+---
+
+## Academic Relevance
+This project is relevant for courses and research in:  
+- **Embedded Systems Design** (soft processors on FPGA).  
+- **Computer Architecture** (configurable pipelines, custom instructions).  
+- **Hardware/Software Co-Design** (accelerators + software drivers).  
+- **Digital Systems Validation** (simulation + FPGA prototyping).  
+
+It provides a hands-on approach for understanding how **soft processors** are integrated and validated in FPGA-based SoCs.
+
+---
+
+**Author:** Enrique Alcalá-Zamora Castro 
+**Institution:** Signal Processing Research Team - University of Granada
+
