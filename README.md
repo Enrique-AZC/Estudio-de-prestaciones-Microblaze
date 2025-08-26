@@ -1,24 +1,112 @@
-# Microblaze Performance Evaluation
-Final project for the course *Integrated Electronic Systems (MUIT UGR)*
+# MicroBlaze System-on-Chip (SoC) Implementation
 
-This project aims to study the performance of a **Microblaze**, a Xilinx RISC processor, in four key aspects using **Vivado** and **Vitis** tools:
-1. **Area** (resources used).
-2. **Performance** (benchmarking in Vitis).
-3. **Maximum frequency** (by analyzing critical paths in Vivado).
-4. **Power consumption**.
+## Abstract
+This project implements and validates a **custom System-on-Chip (SoC) architecture** based on the **Xilinx MicroBlaze soft processor core**, synthesized on a reconfigurable FPGA device.  
+The design integrates the MicroBlaze CPU, memory subsystems, standard peripherals, and custom hardware accelerators. The workflow covers all stages: hardware description, toolchain configuration, simulation, synthesis, deployment on FPGA hardware, and software validation.  
 
-The study is carried out by configuring the **Microblaze** with three different presets: **area**, **performance**, and **frequency**, each one focused on optimizing one of the mentioned characteristics.
+The project provides a **complete reference implementation** for students and researchers working with FPGA-based soft processors, embedded system prototyping, and hardware/software co-design.
 
-For the study conducted in Vitis, use the provided cpp file (it is recommended to use the empty C/C++ project template and the hardware platform XSA generated in the Vivado project).  
-The debugger, together with the MDM module (instantiated in Vivado), was used to determine the contents of the internal timer variables.
+---
 
-## Requirements
+## MicroBlaze Architecture Overview
+MicroBlaze is a **32-bit Harvard RISC soft-core processor** that can be instantiated in Xilinx FPGAs.  
+Key characteristics:  
+- **Instruction Set Architecture (ISA):** 32-bit RISC, configurable optional instructions (barrel shifter, multiplier, divider, FPU).  
+- **Pipeline:** 3-stage or 5-stage configurable pipeline.  
+- **Endianness:** Little Endian.  
+- **Memory Architecture:** Harvard architecture with separate instruction/data paths, supports local memory (BRAM) and external interfaces.  
+- **Interrupts:** Supports hardware interrupts, external interrupt controller (XIntc).  
+- **Interfaces:** AXI4, AXI4-Lite, or legacy PLB/OPB depending on Vivado version.  
 
-- **Vivado**: To synthesize the design and obtain metrics of **maximum frequency**, **area**, and **power consumption**.
-- **Vitis**: To run performance tests on the Microblaze processor.
+The flexibility of MicroBlaze makes it suitable for a wide range of **embedded applications**, from bare-metal to RTOS-based designs.
 
-## Installation
+---
 
-```bash
-git clone https://github.com/Enrique-AZC/Introduccion-y-estudio-de-Microblaze
-cd Introduccion-y-estudio-de-Microblaze
+## System Architecture
+The implemented SoC includes the following components:
+
+1. **MicroBlaze CPU Core**
+   - Configurable pipeline depth and optional instruction set extensions.
+   - Connected to AXI interconnect for memory and peripherals.
+
+2. **On-Chip Memory**
+   - BRAM-based local memory (Instruction + Data).
+   - External DDR controller (optional).
+
+3. **Standard Peripherals**
+   - UART Lite for serial communication.
+   - GPIO modules for LED/switch interaction.
+   - Timer modules for system tick and performance monitoring.
+
+4. **Custom Hardware Accelerators** (optional, for co-design experiments)
+   - Connected as AXI peripherals.
+   - Invoked via software drivers in C.
+
+5. **Interrupt System**
+   - Centralized interrupt controller.
+   - Configurable priority and vectoring.
+
+6. **Clocking & Reset**
+   - Processor clock derived from FPGA PLL/MMCM.
+   - AXI interconnect synchronized with CPU domain.
+
+---
+
+## Toolchain & Workflow
+### Hardware Design Flow
+1. **Vivado Block Design**  
+   - Instantiate MicroBlaze from IP catalog.  
+   - Configure memory size, peripheral mapping, and pipeline.  
+   - Connect AXI interconnects.  
+   - Validate design and generate HDL wrapper.  
+
+2. **Synthesis & Implementation**  
+   - Map design to target FPGA (e.g., Xilinx Artix-7, Zynq-7000).  
+   - Optimize timing closure for desired CPU frequency.  
+
+3. **Bitstream Generation**  
+   - Export `.bit` file for FPGA programming.  
+   - Export hardware description (XSA) to SDK/Vitis.  
+
+### Software Development Flow
+1. **Toolchain**  
+   - Xilinx Vitis or SDK (depending on version).  
+   - Cross-compiler: `mb-gcc` (MicroBlaze GNU Toolchain).  
+
+2. **Bare-Metal Application**  
+   - Written in C.  
+   - Uses BSP (Board Support Package) auto-generated from hardware design.  
+   - Includes drivers for UART, GPIO, timers, and custom accelerators.  
+
+3. **RTOS Integration (optional)**  
+   - FreeRTOS port for MicroBlaze.  
+   - Task scheduling, semaphore synchronization, and tick timer setup.  
+
+4. **Deployment**  
+   - Program FPGA with `.bit` file.  
+   - Load ELF binary into MicroBlaze memory.  
+   - Debug via UART or JTAG interface.  
+
+---
+
+## Validation & Testing
+Validation consists of both **functional verification** (simulation) and **hardware testing** (on FPGA board).
+
+1. **Simulation**  
+   - Behavioral simulation of HDL design in Vivado Simulator.  
+   - Testbenches validate instruction fetch, data access, and peripheral response.  
+
+2. **Hardware Testing**  
+   - UART test (echo characters sent from PC).  
+   - GPIO test (LED blink controlled by software).  
+   - Timer test (periodic interrupt handling).  
+   - Custom accelerator test (software function call invokes hardware unit).  
+
+3. **Performance Measurement**  
+   - CPU frequency: up to 200 MHz (depending on FPGA).  
+   - Memory throughput measured using `Xil_TestMem32()`.  
+   - Interrupt latency benchmarked using cycle counter.  
+
+---
+
+## Repository Structure
