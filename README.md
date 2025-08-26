@@ -1,24 +1,23 @@
-# Estudio de prestaciones de Microblaze
-Conforma el trabajo final de la asignatura Sistemas Electrónicos Integrados (MUIT UGR)
+# Microblaze Performance Evaluation
+Final project for the course *Integrated Electronic Systems (MUIT UGR)*
 
+This project aims to study the performance of a **Microblaze**, a Xilinx RISC processor, in four key aspects using **Vivado** and **Vitis** tools:
+1. **Area** (resources used).
+2. **Performance** (benchmarking in Vitis).
+3. **Maximum frequency** (by analyzing critical paths in Vivado).
+4. **Power consumption**.
 
-Este proyecto tiene como objetivo estudiar las prestaciones de un **Microblaze**, procesador RISC de Xilinx, en tres aspectos clave utilizando las herramientas **Vivado** y **Vitis**:
-1. **Área** (recursos utilizados).
-2. **Rendimiento** (prueba de rendimiento en Vitis).
-3. **Frecuencia máxima** (mediante el estudio de rutas críticas en Vivado).
-4. **Consumo energético**.
+The study is carried out by configuring the **Microblaze** with three different presets: **area**, **performance**, and **frequency**, each one focused on optimizing one of the mentioned characteristics.
 
-El estudio se realiza configurando el **Microblaze** con tres presets diferentes: **área**, **rendimiento** y **frecuencia**, cada uno enfocado en optimizar una de las características mencionadas.
+For the study conducted in Vitis, use the provided cpp file (it is recommended to use the empty C/C++ project template and the hardware platform XSA generated in the Vivado project).  
+The debugger, together with the MDM module (instantiated in Vivado), was used to determine the contents of the internal timer variables.
 
-Para el estudio realizado en Vitis, utilizar el archivo cpp proporcionado (se recomienda utilizar el template de proyecto vacio en C/C++ y utilizar la plataforma de hardware XSA encontrada en el proyecto de Vivado). 
-Se ha utilizado el depurador junto con el módulo MDM (instanciado en Vivado) para determinar los contenidos de las variables internas del temporizador
+## Requirements
 
-## Requisitos
+- **Vivado**: To synthesize the design and obtain metrics of **maximum frequency**, **area**, and **power consumption**.
+- **Vitis**: To run performance tests on the Microblaze processor.
 
-- **Vivado**: Para sintetizar el diseño y obtener las métricas de **frecuencia máxima**, **área** y **consumo energético**.
-- **Vitis**: Para realizar pruebas de rendimiento sobre el procesador Microblaze.
-
-## Instalación
+## Installation
 
 ```bash
 git clone https://github.com/Enrique-AZC/Introduccion-y-estudio-de-Microblaze
