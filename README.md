@@ -1,4 +1,4 @@
-# Introduccion y estudio de prestaciones de Microblaze
+# Estudio de prestaciones de Microblaze
 Conforma el trabajo final de la asignatura Sistemas Electrónicos Integrados (MUIT UGR)
 
 
